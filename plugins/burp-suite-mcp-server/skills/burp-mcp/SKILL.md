@@ -40,7 +40,7 @@ they answer the dialog in Burp.
 - **Sending requests** (`send_http1_request`, `send_http2_request`): dialog offers Allow Once,
   Always Allow Host, Always Allow Host:Port, Deny. Hosts in the `MCP` tab's auto-approve list skip it
   (`*.example.com` wildcards work).
-- **Reading data** (Proxy HTTP history, WebSocket history, Organizer): dialog offers Allow Once,
+- **Reading data** (Proxy HTTP history, WebSocket history, Organizer, site map): dialog offers Allow Once,
   Always Allow, Deny.
 
 If a call is slow, tell the user Burp is probably waiting for them to approve it. A denial comes back as a
@@ -62,6 +62,7 @@ entry including `url`; an entry with only the approval mode fails with `invalid 
 | `get_proxy_http_history` | Pages through all Proxy history in order. |
 | `get_proxy_websocket_history[_regex]` | Same for WebSocket messages. |
 | `get_organizer_items[_regex]` | Items the user saved to Organizer. Often the ones they care about most. |
+| `get_site_map` | Pages through the Target site map. Optional `urlPrefix` (e.g. `https://example.com/api/`) limits it to one host or path. |
 | `get_scanner_issues` | Issues Burp Scanner has found (Professional only). |
 
 All of these take `count` and `offset`. Start small (`count` 5-20) and page with `offset`;
