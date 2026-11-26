@@ -37,7 +37,7 @@ Ask the user to fix Burp-side problems; you cannot start Burp or load the extens
 By default Burp asks the user before the extension does anything sensitive. The tool call blocks until
 they answer the dialog in Burp.
 
-- **Sending requests** (`send_http1_request`, `send_http2_request`): dialog offers Allow Once,
+- **Sending requests** (`send_http1_request`, `send_http2_request`, `start_scan`): dialog offers Allow Once,
   Always Allow Host, Always Allow Host:Port, Deny. Hosts in the `MCP` tab's auto-approve list skip it
   (`*.example.com` wildcards work).
 - **Reading data** (Proxy HTTP history, WebSocket history, Organizer): dialog offers Allow Once,
@@ -102,6 +102,14 @@ the tab a name that says what it is for.
 2. Put the payload where the target might resolve or fetch it.
 3. `get_collaborator_interactions` with that `payloadId` lists DNS, HTTP and SMTP hits. Poll again after a
    short wait. `No interactions detected` is not proof of absence.
+
+### Scanning (Professional only)
+
+| Tool | Use |
+|---|---|
+| `start_scan` | `urls` plus `scanType` `audit` (default) or `crawl`. An audit also covers every site map entry under each URL, so crawl first. Returns a `scanId`. Sends a lot of traffic; only scan targets the user has said are in scope. |
+| `scan_status` | Progress for a `scanId`: request and error counts, site map entries and issue counts under the scanned URLs. |
+| `scan_delete` | Stops a scan and removes it from Burp's task list. Found issues stay; read them with `get_scanner_issues`. |
 
 ### Utilities
 
